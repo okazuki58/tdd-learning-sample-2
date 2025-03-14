@@ -38,10 +38,27 @@ git checkout -b feature/task-1
 
 ```bash
 npm install
-npm test
 ```
 
-- ローカルでテストを通過させてから次に進みましょう。
+#### 🔹 課題ごとのテストを実行する方法
+
+各課題ごとに以下のコマンドを使ってテストを実行してください。
+
+| 課題番号 | 実行コマンド |
+| --- | --- |
+| 課題1 | `npm run test:task1` |
+| 課題2 | `npm run test:task2` |
+| 課題3 | `npm run test:task3` |
+| 課題4 | `npm run test:task4` |
+| 課題5 | `npm run test:task5` |
+
+例：課題1の場合
+
+```bash
+npm run test:task1
+```
+
+- テストを通過させてから次に進みましょう。
 
 ---
 
@@ -88,13 +105,13 @@ git branch -d feature/task-1
 テストが失敗した場合は、以下を参考に問題を解決しましょう。
 
 - テスト結果のエラー内容をしっかり読む
-- 問題箇所を修正後、再度ローカルでテストを実行する（`npm test`）
+- 問題箇所を修正後、再度ローカルでテストを実行する（課題ごとのテストコマンドを利用）
 
 ---
 
 ## 🧑‍💻 使用している技術
 - Node.js (JavaScript)
-- Jest（ユニットテスト）
+- Jest（テストフレームワーク）
 - GitHub Actions（CI）
 
 ---
