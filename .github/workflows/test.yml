@@ -1,4 +1,4 @@
-name: Run Tests & Auto Merge
+name: Test and Create Pull Request
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - 'feature/**'
 
 jobs:
-  test_and_auto_merge:
+  test_and_pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,29 +14,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - run: npm test
 
-      # PRを作成
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
       - name: Create Pull Request
-        id: create-pr
+        if: success()
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.ref_name }}
-          delete-branch: true
-          title: "Auto Merge: ${{ github.ref_name }}"
-          body: "テストが成功したため、自動マージします。"
-
-      # 自動マージを有効化（GitHubのAutoMerge機能）
-      - name: Enable Automerge
-        if: steps.create-pr.outputs.pull-request-number
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
-          merge-method: squash
+          title: "課題完了: ${{ github.ref_name }}"
+          body: |
+            課題のテストを通過しました。
+            内容を確認し、問題なければマージしてください。
