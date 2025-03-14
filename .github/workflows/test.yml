@@ -1,4 +1,4 @@
-name: Test and Create Pull Request
+name: Run Tests
 
 on:
   push:
@@ -6,11 +6,8 @@ on:
       - 'feature/**'
 
 jobs:
-  test_and_pr:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -24,15 +21,3 @@ jobs:
 
       - name: Run Tests
         run: npm test
-
-      - name: Create Pull Request
-        if: success()
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
-          branch: ${{ github.ref_name }}
-          title: "課題完了: ${{ github.ref_name }}"
-          body: |
-            課題のテストを通過しました。
-            内容を確認し、問題なければマージしてください。
