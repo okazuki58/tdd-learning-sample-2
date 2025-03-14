@@ -2,9 +2,19 @@
   "name": "tdd-learning-sample",
   "version": "1.0.0",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:task1": "jest tests/task-1-auth.test.js",
+    "test:task2": "jest tests/task-2-getUser.test.js",
+    "test:task3": "jest tests/task-3-registerUser.test.js",
+    "test:task4": "jest tests/task-4-api.test.js",
+    "test:task5": "jest tests/task-5-registerUserPrisma.test.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "axios": "^1.6.7"
   },
   "devDependencies": {
-    "jest": "^29.0.0"
+    "jest": "^29.0.0",
+    "prisma": "^5.10.2"
   }
 }

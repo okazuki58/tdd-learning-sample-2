@@ -3,21 +3,23 @@ name: Run Tests
 on:
   push:
     branches:
-      - 'feature/**'
+      - 'feature/task-*'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install
+      - run: npm install
 
-      - name: Run Tests
-        run: npm test
+      - name: Extract task number from branch name
+        id: get_task_number
+        run: |
+          echo "TASK_NUMBER=$(echo $GITHUB_REF_NAME | sed -E 's|feature/task-([0-9]+).*|\1|')" >> $GITHUB_ENV
+
+      - name: Run specific task tests
+        run: npm run test:task${{ env.TASK_NUMBER }}
